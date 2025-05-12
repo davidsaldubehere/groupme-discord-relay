@@ -1,0 +1,6 @@
+flask
+discord.py
+python-dotenv
+aiohttp
+waitress
+requests

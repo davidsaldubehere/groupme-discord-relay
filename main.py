@@ -14,7 +14,6 @@ app = Flask(__name__)
 DISCORD_TOKEN = os.getenv("DISCORD_TOKEN")
 DISCORD_CHANNEL_ID = int(os.getenv("DISCORD_CHANNEL_ID"))
 GROUPME_BOT_ID = os.getenv("GROUPME_BOT_ID")
-print(GROUPME_BOT_ID)
 intents = discord.Intents.default()
 intents.message_content = True
 
