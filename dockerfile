@@ -14,7 +14,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY main.py .env ./
 
 # Expose port for Flask/Waitress
-EXPOSE 6000
+EXPOSE 80
 
 # Run the relay script
 CMD ["python", "main.py"]

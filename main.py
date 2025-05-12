@@ -22,10 +22,10 @@ discord_client = discord.Client(intents=intents)
 @app.route('/', methods=['POST'])
 def groupme_webhook():
     data = request.get_json()
-    sender = data.get('sender')
+    sender = data.get('name')
     text = data.get('text')
     
-    if sender != "bot":  # Prevent echo
+    if data.get('sender_type') != "bot":  # Prevent echo
         message = f"[GroupMe] {sender}: {text}"
         asyncio.run_coroutine_threadsafe(send_to_discord(message), discord_client.loop)
 
@@ -37,7 +37,7 @@ async def send_to_discord(message):
         await channel.send(message)
 
 def run_flask():
-    serve(app, port=6000)
+    serve(app, port=80)
 
 @discord_client.event
 async def on_message(message):
