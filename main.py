@@ -1,13 +1,13 @@
 # groupme_discord_relay.py
 from flask import Flask, request
 import requests
-from dotenv import load_dotenv
+#from dotenv import load_dotenv
 import discord
 import threading
 import asyncio
 import os
 from waitress import serve
-load_dotenv()
+#load_dotenv()
 
 app = Flask(__name__)
 
@@ -37,7 +37,7 @@ async def send_to_discord(message):
         await channel.send(message)
 
 def run_flask():
-    serve(app, port=80)
+    serve(app, port=8080)
 
 @discord_client.event
 async def on_message(message):

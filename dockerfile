@@ -1,5 +1,5 @@
 # Use official Python image
-FROM python:3.13-slim
+FROM python:3.11-slim
 
 # Set workdir
 WORKDIR /app
@@ -11,10 +11,10 @@ COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy app files
-COPY main.py .env ./
+COPY main.py ./
 
 # Expose port for Flask/Waitress
-EXPOSE 80
+EXPOSE 8080
 
 # Run the relay script
 CMD ["python", "main.py"]
