@@ -19,21 +19,21 @@ intents.message_content = True
 
 discord_client = discord.Client(intents=intents)
 
-@app.route('/', methods=['POST'])
+@app.route('/', methods=['GET', 'POST'])
 def groupme_webhook():
-    data = request.get_json()
-    sender = data.get('name')
-    text = data.get('text')
-    
-    if data.get('sender_type') != "bot":  # Prevent echo
-        message = f"[GroupMe] {sender}: {text}"
-        asyncio.run_coroutine_threadsafe(send_to_discord(message), discord_client.loop)
+    if request.method == 'POST':
+        data = request.get_json()
+        sender = data.get('name')
+        text = data.get('text')
+        
+        if data.get('sender_type') != "bot":  # Prevent echo
+            message = f"{sender}: {text}"
+            asyncio.run_coroutine_threadsafe(send_to_discord(message), discord_client.loop)
 
-    return "OK", 200
+        return "OK", 200
 
-@app.route('/', methods=['GET'])
-def groupme_webhook():
-    return "OK", 200
+    elif request.method == 'GET':
+        return "OK", 200
 
 async def send_to_discord(message):
     channel = discord_client.get_channel(DISCORD_CHANNEL_ID)
@@ -46,7 +46,7 @@ def run_flask():
 @discord_client.event
 async def on_message(message):
     if message.channel.id == DISCORD_CHANNEL_ID and not message.author.bot:
-        text = f"[Discord] {message.author.display_name}: {message.content}"
+        text = f"{message.author.display_name}: {message.content}"
         requests.post(
             "https://api.groupme.com/v3/bots/post",
             json={"bot_id": GROUPME_BOT_ID, "text": text}
