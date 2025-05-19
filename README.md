@@ -9,7 +9,9 @@ GROUPME_ACCESS_TOKEN=y93c79a8e7902YzYtZDY5Ny00ZWI0LWIfYjItN2Q4ZDUxYzA4ZDEw
 
 then uncomment the dotenv loader lines
 
-And make sure that your groupme bot has a callback url to wherever you deploy this. Your discord bot should also have the manage_messages permission
+And make sure that your groupme bot has a callback url to wherever you deploy this. Your discord bot should also have the manage_messages permission.
+
+I just use google cloud run for this but that can be finicky.
 
 ## Features
 
